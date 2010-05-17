@@ -1,5 +1,23 @@
 (ns atticus.mock
-  "Simple Mocking in Clojure"
+  "Simple Mocking in Clojure. Allows you to implement the mock function as a
+lambda.
+
+(deftest with-1-test
+  (expects
+   [(f [arg] (do (is (= arg 1) \"Check argument\") arg))]
+   (is (= 1 (f 1)) \"Call mocked function\")))
+
+(deftest with-1-once-test
+  (expects
+   [(f [arg] (once (inc arg)))]
+   (is (= 1 (f 1)) \"Call mocked function\")))
+
+(deftest with-1-times-test
+  (expects
+   [(f [arg] (times 2 arg))]
+   (is (= 1 (f 1)) \"Call mocked function\")
+   (is (= 1 (f 1)) \"Call mocked function\")))
+"
   (:use clojure.test))
 
 (def *expectations*)

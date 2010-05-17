@@ -13,10 +13,8 @@
 
 (defn equality-condition
   [a b msg]
-  (println "MM " a b)
-  (if-not (= a b)
-    (condition/raise :message msg)
-    (println "HEY " a b)))
+  (when-not (= a b)
+    (condition/raise :message msg)))
 
 (deftest add-expectation-test
   (with-expectations
@@ -84,11 +82,22 @@
     (is (= [] *expectations*))
     (is (not (x)))))
 
+(deftest with-1-test
+  (defn f [x] (inc x))
+  (expects
+   [(f [arg] (do (is (= arg 1) "Check argument") arg))]
+   (is (= 1 (f 1)) "Call mocked function"))
+  (is (= 2 (f 1)) "Reverts to original function"))
+
 (deftest once-test
   (is (nil?
        (expects [(x [] (once true))]
          (is (= 1 (count *expectations*)))
-         (is (x))))))
+         (is (x)))))
+  (is (nil?
+       (expects [(x [arg] (once (inc arg)))]
+		(is (= 1 (count *expectations*)))
+		(is (= 2 (x 1)))))))
 
 (deftest times-test
   (is (nil?
