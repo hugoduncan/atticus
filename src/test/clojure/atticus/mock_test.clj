@@ -85,7 +85,7 @@
 (deftest with-1-test
   (defn f [x] (inc x))
   (expects
-   [(f [arg] (do (is (= arg 1) "Check argument") arg))]
+   [(f [arg] (is (= arg 1) "Check argument") arg)]
    (is (= 1 (f 1)) "Call mocked function"))
   (is (= 2 (f 1)) "Reverts to original function"))
 

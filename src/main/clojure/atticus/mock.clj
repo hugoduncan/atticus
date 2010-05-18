@@ -4,7 +4,7 @@ lambda.
 
 (deftest with-1-test
   (expects
-   [(f [arg] (do (is (= arg 1) \"Check argument\") arg))]
+   [(f [arg] (is (= arg 1) \"Check argument\") arg)]
    (is (= 1 (f 1)) \"Call mocked function\")))
 
 (deftest with-1-once-test
@@ -67,10 +67,11 @@ lambda.
 
 (defn construct-mock
   "Construct the mock. Checks for a mock wrapper around the body."
-  [[v args body]]
-  (if (and (list? body) (#{#'once #'times} (resolve (first body))))
-    `(~(first body) ~v ~args ~body)
-    `(fn ~args ~@(if (seq? body) body (list body)))))
+  [[v args & body]]
+  (if (and (list? (first body))
+	   (#{#'once #'times} (resolve (first (first body)))))
+    `(~(first (first body)) ~v ~args ~@body)
+    `(fn ~args ~@body)))
 
 (defn add-mock
   "Add a mock to the bindings."
