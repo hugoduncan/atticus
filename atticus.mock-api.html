@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <title>atticus.mock API reference (Atticus)</title>
+    <link href="static/favicon.png" rel="icon" />
+    <link href="static/favicon.png" rel="shortcut icon" />
+    <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/wiki.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/internal.css" rel="stylesheet" />
+    <!-- TODO: are we using these (from clojure.org)? If so, add the files -->
+    <script src="file/view/code_highlighter.js" type="text/javascript"></script>
+    <script src="file/view/clojure.js" type="text/javascript"></script>
+    <style>.menuWrapper{height: 36px;}</style>
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://www.wikispaces.com/_/2009051601/s/internal_ie.css" type="text/css" />
+    <![endif]-->
+  </head>
+<!--
+This document was auto-generated from the source by the clojure autodoc system.
+To report errors or ask questions about the overall documentation structure, formatting,
+etc., contact Tom Faulhaber (google mail name: tomfaulhaber).
+For errors in the documentation of a particular namespace, contact the author of that
+namespace.
+-->
+  <body>
+    <div id="AllContentContainer">
+      <div id="Header">
+	<a id="Logo" href="index.html"><img alt="Clojure" height="100" width="100" src="static/clojure-icon.gif" /></a>
+	<h1><a title="page header title" id="page-header" href="index.html">Atticus</a></h1>
+      </div>
+      <div id="leftcolumn"><div style="text-align: center;"></div>
+<div class="menu">
+  <div class="WikiCustomNav WikiElement wiki">
+    <a class="wiki_link" href="index.html">Overview</a><br />
+    <a class="wiki_link" href="api-index.html">API Index</a><br />
+    <a class="wiki_link" href="#">Namespaces:</a>
+    <ul id="left-sidebar-list">
+      <li><a href="atticus.mock-api.html" class="wiki_link">atticus.mock</a></li><li><a href="atticus.utils-api.html" class="wiki_link">atticus.utils</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+      <div id="rightcolumn">
+	<div id="Content">
+	  <div class="contentBox"><div class="innerContentBox">
+              <div id="content_view" class="wiki wikiPage">
+                <div id="right-sidebar"><div id="toc">
+  <h1 class="nopad">Table of Contents</h1>
+  <div style="margin-left: 1em;" class="toc-section">
+    <a href="#toc0">Overview</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a href="#atticus.mock/add-expectation">add-expectation</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#atticus.mock/add-mock">add-mock</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#atticus.mock/construct-bindings">construct-bindings</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#atticus.mock/construct-mock">construct-mock</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#atticus.mock/expects">expects</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#atticus.mock/once">once</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#atticus.mock/times">times</a>
+    </div>
+    <br />
+  </div>
+</div>
+</div>
+                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">atticus.mock</span></h1>
+by <span id="author">Unknown</span><br />
+<br />Usage:
+<pre>
+(ns your-namespace
+  (:require <span id="long-name">atticus.mock</span>))
+</pre><pre>
+</pre><h2>Overview</h2>
+<pre id="namespace-docstr">Simple Mocking in Clojure. Allows you to implement the mock function as a
+lambda.
+
+(deftest with-1-test
+  (expects
+   [(f [arg] (is (= arg 1) "Check argument") arg)]
+   (is (= 1 (f 1)) "Call mocked function")))
+
+(deftest with-1-once-test
+  (expects
+   [(f [arg] (once (inc arg)))]
+   (is (= 1 (f 1)) "Call mocked function")))
+
+(deftest with-1-times-test
+  (expects
+   [(f [arg] (times 2 arg))]
+   (is (= 1 (f 1)) "Call mocked function")
+   (is (= 1 (f 1)) "Call mocked function")))</pre>
+<br />
+<h2>Public Variables and Functions</h2>
+<div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.mock/add-expectation">add-expectation</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (add-expectation f)
+</pre>
+  <pre id="var-docstr">Add an expectation check function to the list of expectations</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/4e32eaf34a4b3eb06ac8c2bb67c1b64f72b71a69/src/main/clojure/atticus/mock.clj#L36" id="var-source">Source</a>
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.mock/add-mock">add-mock</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (add-mock mocks mock)
+</pre>
+  <pre id="var-docstr">Add a mock to the bindings.</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/4e32eaf34a4b3eb06ac8c2bb67c1b64f72b71a69/src/main/clojure/atticus/mock.clj#L76" id="var-source">Source</a>
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.mock/construct-bindings">construct-bindings</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (construct-bindings mocks)
+</pre>
+  <pre id="var-docstr">Construct a binding vector from the mock specification.</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/4e32eaf34a4b3eb06ac8c2bb67c1b64f72b71a69/src/main/clojure/atticus/mock.clj#L81" id="var-source">Source</a>
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.mock/construct-mock">construct-mock</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (construct-mock [v args &amp; body])
+</pre>
+  <pre id="var-docstr">Construct the mock. Checks for a mock wrapper around the body.</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/4e32eaf34a4b3eb06ac8c2bb67c1b64f72b71a69/src/main/clojure/atticus/mock.clj#L68" id="var-source">Source</a>
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.mock/expects">expects</h2>
+  <span id="var-type">macro</span><br />
+  <pre id="var-usage">Usage: (expects mocks &amp; body)
+</pre>
+  <pre id="var-docstr">Binds a list of mocks, checling any expectations on exit of the block.</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/4e32eaf34a4b3eb06ac8c2bb67c1b64f72b71a69/src/main/clojure/atticus/mock.clj#L91" id="var-source">Source</a>
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.mock/once">once</h2>
+  <span id="var-type">macro</span><br />
+  <pre id="var-usage">Usage: (once v args body)
+</pre>
+  <pre id="var-docstr">Add an expectation that the function is called once.</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/4e32eaf34a4b3eb06ac8c2bb67c1b64f72b71a69/src/main/clojure/atticus/mock.clj#L41" id="var-source">Source</a>
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.mock/times">times</h2>
+  <span id="var-type">macro</span><br />
+  <pre id="var-usage">Usage: (times v args body)
+</pre>
+  <pre id="var-docstr">Add an expectation that the function is called specified number of times.</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/4e32eaf34a4b3eb06ac8c2bb67c1b64f72b71a69/src/main/clojure/atticus/mock.clj#L54" id="var-source">Source</a>
+</div>
+
+
+</div>
+              </div>
+            </div>
+          </div>
+	</div>
+	<div id="foot">
+	  <div style="text-align: center;" id="copyright">Copyright Hugo Duncan 2010. All rights reserved.</div>
+	</div>
+      </div>
+      <div id="DesignedBy">Logo &amp; site design by <a title="Visit Tom Hickey's website." href="http://www.tomhickey.com">Tom Hickey</a>.<br />
+      Clojure auto-documentation system by Tom Faulhaber.</div>
+    </div>
+    <!-- /AllContentContainer -->
+  </body>
+
+</html>
