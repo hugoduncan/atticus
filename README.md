@@ -29,7 +29,7 @@ function is called exactlyt he specified number of times.
 	(deftest mock-test
           (atticus.mock/expects
             [(f [arg]
-               (once
+               (atticus.mock/once
                  (is (= arg 1) "Check argument")
                  arg))]
 	    (is (= 1 (f 1)) "Call mocked function"))
