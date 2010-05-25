@@ -24,7 +24,7 @@ lambda.
 
 (defn equality-checker
   [a b msg]
-  `(is (= ~a ~b ~msg)))
+  (is (= a b) msg))
 
 (def *equality-checker* equality-checker)
 
