@@ -73,10 +73,26 @@ lambda.
     `(~(first (first body)) ~v ~args ~@body)
     `(fn ~args ~@body)))
 
+(defn extract-functions [mock-proto]
+  (subvec (vec mock-proto) 2))
+
+(defn protocol-mock? [spec]
+  (not (vector? (second spec))))
+
+(defn protocol-function-map [function-map spec]
+  (assoc function-map (-> spec
+	       name
+	       keyword)
+	 spec))
+
+(declare construct-bindings)
+
 (defn add-mock
   "Add a mock to the bindings."
   [mocks mock]
-  (concat mocks [(first mock) (construct-mock mock)]))
+  (if (protocol-mock? mock)
+    (concat mocks (construct-bindings (extract-functions mock)))
+    (concat mocks [(first mock) (construct-mock mock)])))
 
 (defn construct-bindings
   "Construct a binding vector from the mock specification."
@@ -88,10 +104,28 @@ lambda.
   `(binding [*expectations* []]
      ~@body))
 
+(defn create-protocol-impl [extend-type protocol fns]
+  `(extend ~extend-type
+     ~protocol
+     ~(reduce protocol-function-map {}
+	      (map #(first (fns %)) (filter even? (range 0 (count fns)))))))
+
+(defn- create-protocol-pairs [v mock]
+  (concat v [(nth mock 0)
+	     (create-protocol-impl nil (nth mock 1) (extract-functions mock))]))
+(defn construct-protocol-bindings [mocks]
+  (->> mocks
+       (filter protocol-mock?)
+       (reduce create-protocol-pairs [])
+       vec))
+
 (defmacro expects
   "Binds a list of mocks, checling any expectations on exit of the block."
   [mocks & body]
   `(with-expectations
      (binding ~(construct-bindings mocks)
-       ~@body)
+       (let ~(construct-protocol-bindings mocks)
+	 ~@body))
      (verify-expectations *expectations*)))
+
+
