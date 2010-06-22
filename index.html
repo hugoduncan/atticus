@@ -34,7 +34,7 @@ namespace.
     <a class="wiki_link" href="api-index.html">API Index</a><br />
     <a class="wiki_link" href="#">Namespaces:</a>
     <ul id="left-sidebar-list">
-      <li><a href="atticus.mock-api.html" class="wiki_link">atticus.mock</a></li><li><a href="atticus.utils-api.html" class="wiki_link">atticus.utils</a></li>
+      <li><a href="atticus.factory-api.html" class="wiki_link">atticus.factory</a></li><li><a href="atticus.mock-api.html" class="wiki_link">atticus.mock</a></li><li><a href="atticus.stub-api.html" class="wiki_link">atticus.stub</a></li><li><a href="atticus.utils-api.html" class="wiki_link">atticus.utils</a></li>
     </ul>
   </div>
 </div>
@@ -46,7 +46,15 @@ namespace.
                 <div id="right-sidebar"><div id="toc">
   <h1 class="nopad">Table of Contents</h1>
   <div style="margin-left: 1em;" class="toc-section">
+    <a href="#atticus.factory">atticus.factory</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
     <a href="#atticus.mock">atticus.mock</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#atticus.stub">atticus.stub</a>
     
     <br />
   </div><div style="margin-left: 1em;" class="toc-section">
@@ -61,6 +69,34 @@ namespace.
 <div id="project-description">Atticus is a test helper library.</div>
 <br />
 <div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.factory">atticus.factory</h2>
+  by <span id="author">unknown author</span><br />
+  <a href="atticus.factory-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr">Factory methods to generate defrecord instances for use in testing.  Inspired by
+notahat's machinist gem.
+
+You can refer to (lexically) previous fields when defining the factory.
+
+     (defrecords make-rec my.ns.SomeRecord
+       :n 1 :o (inc (:n %)))
+
+     (make-rec)
+       =&gt; {:n 1 :o 2}
+
+Overriding a single value will cause it to be picked up in computed expressions
+     (make-rec :n 2)
+       =&gt; {:n 2 :o 3}
+
+Computed fields can also be set explicitly.
+   (make-user :o 1)
+     =&gt; {:n 1 :o 1}</pre>
+  
+  Public variables and functions:
+  <span id="var-link"><a href="atticus.factory-api.html#atticus.factory/clj-fields" id="var-tag">clj-fields</a> </span><span id="var-link"><a href="atticus.factory-api.html#atticus.factory/defrecords" id="var-tag">defrecords</a> </span><span id="var-link"><a href="atticus.factory-api.html#atticus.factory/set-fields" id="var-tag">set-fields</a> </span><br />
+  
+</div><div id="namespace-entry">
   <br />
   <hr />
   <h2 id="atticus.mock">atticus.mock</h2>
@@ -87,6 +123,17 @@ lambda.
   
   Public variables and functions:
   <span id="var-link"><a href="atticus.mock-api.html#atticus.mock/add-expectation" id="var-tag">add-expectation</a> </span><span id="var-link"><a href="atticus.mock-api.html#atticus.mock/add-mock" id="var-tag">add-mock</a> </span><span id="var-link"><a href="atticus.mock-api.html#atticus.mock/construct-bindings" id="var-tag">construct-bindings</a> </span><span id="var-link"><a href="atticus.mock-api.html#atticus.mock/construct-mock" id="var-tag">construct-mock</a> </span><span id="var-link"><a href="atticus.mock-api.html#atticus.mock/expects" id="var-tag">expects</a> </span><span id="var-link"><a href="atticus.mock-api.html#atticus.mock/once" id="var-tag">once</a> </span><span id="var-link"><a href="atticus.mock-api.html#atticus.mock/times" id="var-tag">times</a> </span><br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.stub">atticus.stub</h2>
+  by <span id="author">unknown author</span><br />
+  <a href="atticus.stub-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr">Stub objects for testing.</pre>
+  
+  Public variables and functions:
+  <span id="var-link"><a href="atticus.stub-api.html#atticus.stub/eval-constant" id="var-tag">eval-constant</a> </span><span id="var-link"><a href="atticus.stub-api.html#atticus.stub/stub" id="var-tag">stub</a> </span><br />
   
 </div><div id="namespace-entry">
   <br />

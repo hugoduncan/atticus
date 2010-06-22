@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>atticus.utils API reference (Atticus)</title>
+    <title>atticus.stub API reference (Atticus)</title>
     <link href="static/favicon.png" rel="icon" />
     <link href="static/favicon.png" rel="shortcut icon" />
     <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
@@ -48,45 +48,45 @@ namespace.
   <div style="margin-left: 1em;" class="toc-section">
     <a href="#toc0">Overview</a>
     <div style="margin-left: 1em;" class="toc-entry">
-      <a href="#atticus.utils/tmpfile">tmpfile</a>
+      <a href="#atticus.stub/eval-constant">eval-constant</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#atticus.utils/with-temporary-file">with-temporary-file</a>
+      <a href="#atticus.stub/stub">stub</a>
     </div>
     <br />
   </div>
 </div>
 </div>
-                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">atticus.utils</span></h1>
+                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">atticus.stub</span></h1>
 by <span id="author">Unknown</span><br />
 <br />Usage:
 <pre>
 (ns your-namespace
-  (:require <span id="long-name">atticus.utils</span>))
+  (:require <span id="long-name">atticus.stub</span>))
 </pre><pre>
 </pre><h2>Overview</h2>
-<pre id="namespace-docstr"></pre>
+<pre id="namespace-docstr">Stub objects for testing.</pre>
 <br />
 <h2>Public Variables and Functions</h2>
 <div id="var-entry">
   <br />
   <hr />
-  <h2 id="atticus.utils/tmpfile">tmpfile</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (tmpfile)
-       (tmpfile prefix suffix)
+  <h2 id="atticus.stub/eval-constant">eval-constant</h2>
+  <span id="var-type">macro</span><br />
+  <pre id="var-usage">Usage: (eval-constant form)
 </pre>
-  <pre id="var-docstr">Create a temporary file.</pre>
-  <a href="http://github.com/hugoduncan/atticus/blob/dea13edd62cd24e9cb6e8d3a65bf598dd558fe40/src/main/clojure/atticus/utils.clj#L12" id="var-source">Source</a>
+  <pre id="var-docstr">Macro to create a form that is evaluated once, and then always returns the
+same value.  Useful if you want to use generated values (eg. with faker)
+in your stubs.</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/0f769aeb59bca1e5c2573602272600fdabad0bce/src/main/clojure/atticus/stub.clj#L9" id="var-source">Source</a>
 </div><div id="var-entry">
   <br />
   <hr />
-  <h2 id="atticus.utils/with-temporary-file">with-temporary-file</h2>
+  <h2 id="atticus.stub/stub">stub</h2>
   <span id="var-type">macro</span><br />
-  <pre id="var-usage">Usage: (with-temporary-file bindings &amp; body)
+  <pre id="var-usage">Usage: (stub &amp; specs)
 </pre>
-  <pre id="var-docstr">Create bindings for temporary files. delete will be called on exit of the
-block.</pre>
-  <a href="http://github.com/hugoduncan/atticus/blob/dea13edd62cd24e9cb6e8d3a65bf598dd558fe40/src/main/clojure/atticus/utils.clj#L18" id="var-source">Source</a>
+  <pre id="var-docstr">Create a stub object. A wrapper for reify.</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/0f769aeb59bca1e5c2573602272600fdabad0bce/src/main/clojure/atticus/stub.clj#L4" id="var-source">Source</a>
 </div>
 
 

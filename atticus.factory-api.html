@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>atticus.utils API reference (Atticus)</title>
+    <title>atticus.factory API reference (Atticus)</title>
     <link href="static/favicon.png" rel="icon" />
     <link href="static/favicon.png" rel="shortcut icon" />
     <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
@@ -48,45 +48,74 @@ namespace.
   <div style="margin-left: 1em;" class="toc-section">
     <a href="#toc0">Overview</a>
     <div style="margin-left: 1em;" class="toc-entry">
-      <a href="#atticus.utils/tmpfile">tmpfile</a>
+      <a href="#atticus.factory/clj-fields">clj-fields</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#atticus.utils/with-temporary-file">with-temporary-file</a>
+      <a href="#atticus.factory/defrecords">defrecords</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#atticus.factory/set-fields">set-fields</a>
     </div>
     <br />
   </div>
 </div>
 </div>
-                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">atticus.utils</span></h1>
+                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">atticus.factory</span></h1>
 by <span id="author">Unknown</span><br />
 <br />Usage:
 <pre>
 (ns your-namespace
-  (:require <span id="long-name">atticus.utils</span>))
+  (:require <span id="long-name">atticus.factory</span>))
 </pre><pre>
 </pre><h2>Overview</h2>
-<pre id="namespace-docstr"></pre>
+<pre id="namespace-docstr">Factory methods to generate defrecord instances for use in testing.  Inspired by
+notahat's machinist gem.
+
+You can refer to (lexically) previous fields when defining the factory.
+
+     (defrecords make-rec my.ns.SomeRecord
+       :n 1 :o (inc (:n %)))
+
+     (make-rec)
+       =&gt; {:n 1 :o 2}
+
+Overriding a single value will cause it to be picked up in computed expressions
+     (make-rec :n 2)
+       =&gt; {:n 2 :o 3}
+
+Computed fields can also be set explicitly.
+   (make-user :o 1)
+     =&gt; {:n 1 :o 1}</pre>
 <br />
 <h2>Public Variables and Functions</h2>
 <div id="var-entry">
   <br />
   <hr />
-  <h2 id="atticus.utils/tmpfile">tmpfile</h2>
+  <h2 id="atticus.factory/clj-fields">clj-fields</h2>
   <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (tmpfile)
-       (tmpfile prefix suffix)
+  <pre id="var-usage">Usage: (clj-fields record-type)
 </pre>
-  <pre id="var-docstr">Create a temporary file.</pre>
-  <a href="http://github.com/hugoduncan/atticus/blob/dea13edd62cd24e9cb6e8d3a65bf598dd558fe40/src/main/clojure/atticus/utils.clj#L12" id="var-source">Source</a>
+  <pre id="var-docstr">Obtain a list of a defrecord's fields</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/c0cdcc1a15201b23fb0c1c04d00b194aba572a76/src/main/clojure/atticus/factory.clj#L21" id="var-source">Source</a>
 </div><div id="var-entry">
   <br />
   <hr />
-  <h2 id="atticus.utils/with-temporary-file">with-temporary-file</h2>
+  <h2 id="atticus.factory/defrecords">defrecords</h2>
   <span id="var-type">macro</span><br />
-  <pre id="var-usage">Usage: (with-temporary-file bindings &amp; body)
+  <pre id="var-usage">Usage: (defrecords name record-type &amp; kw-vals)
 </pre>
-  <pre id="var-docstr">Create bindings for temporary files. delete will be called on exit of the
-block.</pre>
-  <a href="http://github.com/hugoduncan/atticus/blob/dea13edd62cd24e9cb6e8d3a65bf598dd558fe40/src/main/clojure/atticus/utils.clj#L18" id="var-source">Source</a>
+  <pre id="var-docstr">Create a record factory function.
+
+e.g. (defrecords make-rec my.ns.SomeRecord
+       :n 1 :o (inc (:n %)))</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/c0cdcc1a15201b23fb0c1c04d00b194aba572a76/src/main/clojure/atticus/factory.clj#L68" id="var-source">Source</a>
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="atticus.factory/set-fields">set-fields</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (set-fields m obj)
+</pre>
+  <pre id="var-docstr">Set the specified field values.</pre>
+  <a href="http://github.com/hugoduncan/atticus/blob/c0cdcc1a15201b23fb0c1c04d00b194aba572a76/src/main/clojure/atticus/factory.clj#L50" id="var-source">Source</a>
 </div>
 
 
