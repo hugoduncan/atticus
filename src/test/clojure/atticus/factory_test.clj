@@ -10,6 +10,6 @@
 (deftest defrecords-test
   (defrecords make-rec TestRecord
     :a 1 :b (inc (:a %)))
-  (is (= {:a 1 :b 2} (make-rec)))
-  (is (= {:a 2 :b 3} (make-rec :a 2)))
-  (is (= {:a 1 :b 1} (make-rec :b 1))))
+  (is (= (TestRecord. 1 2) (make-rec)))
+  (is (= (TestRecord. 2 3) (make-rec :a 2)))
+  (is (= (TestRecord. 1 1) (make-rec :b 1))))
