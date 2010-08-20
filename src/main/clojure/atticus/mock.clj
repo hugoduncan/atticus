@@ -23,8 +23,8 @@ lambda.
 (def *expectations*)
 
 (defn equality-checker
-  [a b msg]
-  (is (= a b) msg))
+  [actual expected msg]
+  (is (= actual expected) msg))
 
 (def *equality-checker* equality-checker)
 
@@ -44,9 +44,9 @@ lambda.
   `(let [counter# (atom 0)]
      (add-expectation
       (fn []
-	(*equality-checker*
-	 @counter# 1
-	 (format "Expected one call to %s. %d seen." '~v @counter#))))
+        (*equality-checker*
+         @counter# 1
+         (format "Expected one call to %s. %d seen." '~v @counter#))))
      (fn [& args#]
        (swap! counter# inc)
        (apply (fn ~args ~@(rest body)) args#))))
@@ -55,12 +55,12 @@ lambda.
   "Add an expectation that the function is called specified number of times."
   [v args body]
   `(let [counter# (atom 0)
-	 n# ~(second body)]
+         n# ~(second body)]
      (add-expectation
       (fn []
-	(*equality-checker*
-	 @counter# n#
-	 (format "Expected %d calls to %s. %d seen." n# '~v @counter#))))
+        (*equality-checker*
+         @counter# n#
+         (format "Expected %d calls to %s. %d seen." n# '~v @counter#))))
      (fn [& args#]
        (swap! counter# inc)
        (apply (fn ~args ~@(nnext body)) args#))))
@@ -69,7 +69,7 @@ lambda.
   "Construct the mock. Checks for a mock wrapper around the body."
   [[v args & body]]
   (if (and (list? (first body))
-	   (#{#'once #'times} (resolve (first (first body)))))
+           (#{#'once #'times} (resolve (first (first body)))))
     `(~(first (first body)) ~v ~args ~@body)
     `(fn ~args ~@body)))
 
@@ -81,9 +81,9 @@ lambda.
 
 (defn protocol-function-map [function-map spec]
   (assoc function-map (-> spec
-	       name
-	       keyword)
-	 spec))
+               name
+               keyword)
+         spec))
 
 (declare construct-bindings)
 
@@ -108,11 +108,11 @@ lambda.
   `(extend ~extend-type
      ~protocol
      ~(reduce protocol-function-map {}
-	      (map #(first (fns %)) (filter even? (range 0 (count fns)))))))
+              (map #(first (fns %)) (filter even? (range 0 (count fns)))))))
 
 (defn- create-protocol-pairs [v mock]
   (concat v [(nth mock 0)
-	     (create-protocol-impl nil (nth mock 1) (extract-functions mock))]))
+             (create-protocol-impl nil (nth mock 1) (extract-functions mock))]))
 (defn construct-protocol-bindings [mocks]
   (->> mocks
        (filter protocol-mock?)
@@ -125,7 +125,5 @@ lambda.
   `(with-expectations
      (binding ~(construct-bindings mocks)
        (let ~(construct-protocol-bindings mocks)
-	 ~@body))
+         ~@body))
      (verify-expectations *expectations*)))
-
-
