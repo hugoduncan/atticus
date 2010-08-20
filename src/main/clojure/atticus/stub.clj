@@ -11,6 +11,7 @@
    same value.  Useful if you want to use generated values (eg. with faker)
    in your stubs."
   [form]
-  `(do
-     (defonce value# ~form)
-     value#))
+  (let [x (gensym "eval-const-")]
+    `(do
+       (defonce ~x ~form)
+       ~x)))
