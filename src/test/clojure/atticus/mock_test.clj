@@ -25,37 +25,37 @@
   (binding [*equality-checker* equality-condition]
     (with-expectations
       (let [f (once v1 [] (once 1))]
-	(is (thrown?
-	     clojure.contrib.condition.Condition
-	     ((first *expectations*))))
-	(is (= 1 (f)))
-	(is (nil? ((first *expectations*))))))
+        (is (thrown?
+             clojure.contrib.condition.Condition
+             ((first *expectations*))))
+        (is (= 1 (f)))
+        (is (nil? ((first *expectations*))))))
     (with-expectations
       (let [f (once v1 [x] (once (inc x)))]
-	(is (thrown?
-	     clojure.contrib.condition.Condition
-	     ((first *expectations*))))
-	(is (= 1 (f 0)))
-	(is (nil? ((first *expectations*))))))))
+        (is (thrown?
+             clojure.contrib.condition.Condition
+             ((first *expectations*))))
+        (is (= 1 (f 0)))
+        (is (nil? ((first *expectations*))))))))
 
 (deftest times-f-test
   (binding [*equality-checker* equality-condition]
     (with-expectations
       (let [f (times v1 [x] (times 2 (inc x)))]
-	(is (thrown?
-	     clojure.contrib.condition.Condition
-	     ((first *expectations*))))
-	(is (= 1 (f 0)))
-	(is (= 2 (f 1)))
-	(is (nil? ((first *expectations*))))))
+        (is (thrown?
+             clojure.contrib.condition.Condition
+             ((first *expectations*))))
+        (is (= 1 (f 0)))
+        (is (= 2 (f 1)))
+        (is (nil? ((first *expectations*))))))
     (with-expectations
       (let [f (times v1 [x] (times 2 (inc x)))]
-	(is (thrown?
-	     clojure.contrib.condition.Condition
-	     ((first *expectations*))))
-	(is (= 1 (f 0)))
-	(is (= 2 (f 1)))
-	(is (nil? ((first *expectations*))))))))
+        (is (thrown?
+             clojure.contrib.condition.Condition
+             ((first *expectations*))))
+        (is (= 1 (f 0)))
+        (is (= 2 (f 1)))
+        (is (nil? ((first *expectations*))))))))
 
 (deftest construct-mock-test
   (let [mock (construct-mock  `(v1 [] true))]
@@ -96,29 +96,29 @@
          (is (x)))))
   (is (nil?
        (expects [(x [arg] (once (inc arg)))]
-		(is (= 1 (count *expectations*)))
-		(is (= 2 (x 1)))))))
+                (is (= 1 (count *expectations*)))
+                (is (= 2 (x 1)))))))
 
 (deftest times-test
   (is (nil?
        (expects [(x [] (times 2 true))]
          (is (= 1 (count *expectations*)))
          (is (x))
-	 (is (x))))))
+         (is (x))))))
 
-(defprotocol Squared 
+(defprotocol Squared
   (square [impl x]))
 
 (deftest mock-protocol-test
   (expects
    [(instance Squared
-	      (square [impl y] (once (* y y))))]
+              (square [impl y] (once (* y y))))]
    (is (= 9 (square instance 3)))))
 
 (deftest mock-protocol-3-times-test
   (expects
    [(instance Squared
-	      (square [impl y] (times 3 (* y y))))]
+              (square [impl y] (times 3 (* y y))))]
    (is (= 9 (square instance 3)))
    (is (= 16 (square instance 4)))
    (is (= 25 (square instance 5)))))
@@ -130,8 +130,8 @@
 (deftest mock-protocol-with-multiple-methods-test
   (expects
    [(instance Dummy
-	      (dummy-one [impl y] (once (* y y)))
-	      (dummy-two [impl x y] (once (+ x y))))]
+              (dummy-one [impl y] (once (* y y)))
+              (dummy-two [impl x y] (once (+ x y))))]
    (is (= 9 (dummy-one instance 3)))
    (is (= 7 (dummy-two instance 3 4)))))
 
