@@ -1,6 +1,6 @@
 (ns atticus.mock-test
   (:use atticus.mock :reload-all)
-  (:use clojure.test clojure.contrib.logging)
+  (:use clojure.test)
   (:require
    [clojure.contrib.condition :as condition]))
 
