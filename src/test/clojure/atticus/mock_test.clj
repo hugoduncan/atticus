@@ -1,6 +1,6 @@
 (ns atticus.mock-test
   (:use atticus.mock :reload-all)
-  (:use clojure.test)
+  (:use clojure.test clojure.contrib.logging)
   (:require
    [clojure.contrib.condition :as condition]))
 
@@ -123,3 +123,16 @@
    (is (= 16 (square instance 4)))
    (is (= 25 (square instance 5)))))
 
+(defprotocol Dummy
+  (dummy-one [impl x])
+  (dummy-two [impl x y]))
+
+(deftest mock-protocol-with-multiple-methods-test
+  (expects
+   [(instance Dummy
+	      (dummy-one [impl y] (once (* y y)))
+	      (dummy-two [impl x y] (once (+ x y))))]
+   (is (= 9 (dummy-one instance 3)))
+   (is (= 7 (dummy-two instance 3 4)))))
+
+(run-tests 'atticus.mock-test)
