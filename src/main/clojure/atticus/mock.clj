@@ -108,7 +108,7 @@ lambda.
   `(extend ~extend-type
      ~protocol
      ~(reduce protocol-function-map {}
-              (map #(first (fns %)) (filter even? (range 0 (count fns)))))))
+              (map #(first (fns %)) (range 0 (count fns))))))
 
 (defn- create-protocol-pairs [v mock]
   (concat v [(nth mock 0)
