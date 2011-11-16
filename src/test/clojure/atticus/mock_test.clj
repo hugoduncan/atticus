@@ -1,20 +1,21 @@
 (ns atticus.mock-test
   (:use atticus.mock :reload-all)
-  (:use clojure.test)
-  (:require
-   [clojure.contrib.condition :as condition]))
+  (:use clojure.test))
+
+;;; unmaintained condition lib removed here
+;;; considering slingshot or simply (is (thrown-with-msg? ...))
 
 (deftest verify-expectations-test
   (is (thrown?
-       clojure.contrib.condition.Condition
-       (verify-expectations [(fn [] (condition/raise :error 1))])))
+       Exception
+       (verify-expectations [(fn [] (throw (Exception. "error 1")))])))
   (is (nil?
        (verify-expectations [(fn [] true)]))))
 
 (defn equality-condition
   [a b msg]
   (when-not (= a b)
-    (condition/raise :message msg)))
+    (throw (Exception. msg))))
 
 (deftest add-expectation-test
   (with-expectations
@@ -26,14 +27,14 @@
     (with-expectations
       (let [f (once v1 [] (once 1))]
         (is (thrown?
-             clojure.contrib.condition.Condition
+             Exception
              ((first *expectations*))))
         (is (= 1 (f)))
         (is (nil? ((first *expectations*))))))
     (with-expectations
       (let [f (once v1 [x] (once (inc x)))]
         (is (thrown?
-             clojure.contrib.condition.Condition
+             Exception
              ((first *expectations*))))
         (is (= 1 (f 0)))
         (is (nil? ((first *expectations*))))))))
@@ -43,7 +44,7 @@
     (with-expectations
       (let [f (times v1 [x] (times 2 (inc x)))]
         (is (thrown?
-             clojure.contrib.condition.Condition
+             Exception
              ((first *expectations*))))
         (is (= 1 (f 0)))
         (is (= 2 (f 1)))
@@ -51,7 +52,7 @@
     (with-expectations
       (let [f (times v1 [x] (times 2 (inc x)))]
         (is (thrown?
-             clojure.contrib.condition.Condition
+             Exception
              ((first *expectations*))))
         (is (= 1 (f 0)))
         (is (= 2 (f 1)))

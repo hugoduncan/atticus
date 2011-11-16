@@ -20,13 +20,13 @@ lambda.
 "
   (:use clojure.test))
 
-(def *expectations*)
+(def ^:dynamic *expectations*)
 
 (defn equality-checker
   [actual expected msg]
   (is (= actual expected) msg))
 
-(def *equality-checker* equality-checker)
+(def ^:dynamic *equality-checker* equality-checker)
 
 (defn verify-expectations
   [checks]
@@ -123,7 +123,7 @@ lambda.
   "Binds a list of mocks, checling any expectations on exit of the block."
   [mocks & body]
   `(with-expectations
-     (binding ~(construct-bindings mocks)
+     (with-redefs ~(construct-bindings mocks)
        (let ~(construct-protocol-bindings mocks)
          ~@body))
      (verify-expectations *expectations*)))

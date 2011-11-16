@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>atticus</groupId>
   <artifactId>atticus</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.1-ANNADALE</version>
   <name>Atticus mock and test helpers</name>
   <description>Mocking library and test helpers</description>
-  <url>http://github.com/hugoduncan/atticus</url>
+  <url>http://github.com/m-dec/atticus</url>
   <build>
     <resources>
       <resource>
@@ -62,17 +62,22 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.2.0</version>
+      <version>1.3.0</version>
     </dependency>
+    <!--dependency>
+      <groupId>com.github.slingshot</groupId>
+      <artifactId>slingshot</artifactId>
+      <version>0.8.1</version>
+    </dependency-->
     <dependency>
       <groupId>org.clojure</groupId>
-      <artifactId>clojure-contrib</artifactId>
-      <version>1.2.0</version>
+      <artifactId>tools.logging</artifactId>
+      <version>0.2.3</version>
     </dependency>
     <dependency>
       <groupId>swank-clojure</groupId>
       <artifactId>swank-clojure</artifactId>
-      <version>1.2.1</version>
+      <version>1.3.0</version>
       <optional>true</optional>
     </dependency>
   </dependencies>

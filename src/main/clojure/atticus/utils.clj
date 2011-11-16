@@ -1,6 +1,6 @@
 (ns atticus.utils
   (:require
-   [clojure.contrib.logging :as logging])
+   [clojure.tools.logging :as logging])
   (:use clojure.test))
 
 (defmacro with-private-vars [[ns fns] & tests]
