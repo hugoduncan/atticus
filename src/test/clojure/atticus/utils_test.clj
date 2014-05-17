@@ -1,8 +1,7 @@
 (ns atticus.utils-test
   (:use atticus.utils :reload-all)
-  (:use clojure.test)
-  (:require
-   [clojure.contrib.condition :as condition]))
+  (:use clojure.test))
+
 
 (deftest tmpfile-test
   (let [t (tmpfile)]
@@ -16,7 +15,7 @@
     (.delete t)))
 
 
-(def *fn*)
+(def ^:dynamic *fn*)
 
 (deftest with-temporary-file-test
   (binding [*fn* nil]
