@@ -44,7 +44,7 @@ handling temporary files.
 atticus is distributed as a jar, and is available in the [clojars repository](http://clojars.org/atticus).
 
 Installation is with [Leiningen](http://github.com/technomancy/leiningen),
-maven, or your favourite maen repository aware build tool.
+maven, or your favourite Maven repository aware build tool.
 
 ## License
 
